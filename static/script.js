@@ -41,7 +41,7 @@ async function handleFileUpload(file) {
     formData.append('file', file);
 
     try {
-        const response = await fetch('http://localhost:5000/scan', {
+        const response = await fetch('/scan', {
             method: 'POST',
             body: formData
         });
@@ -129,7 +129,7 @@ async function startScan(type) {
         const formData = new FormData();
         formData.append('url', url);
 
-        const response = await fetch('http://localhost:5000/url', {
+        const response = await fetch('/url', {
             method: 'POST',
             body: formData
         });

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Scan Result | PhishGuard AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="scan-page">
+    <header id="main-header">
+        <nav class="container">
+            <div class="logo">
+                <span class="logo-icon">🌿</span>
+                <h1>PhishGuard<span>AI</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('scan') }}">Scan</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="scan-container">
+            {% if message %}
+            <div class="scan-verdict error">
+                <span class="verdict-icon">❌</span>
+                <h4>Error</h4>
+                <p>{{ message }}</p>
+            </div>
+            {% endif %}
+
+            {% if predicted_class %}
+            <div class="scan-verdict">
+                <span class="verdict-icon">🔍</span>
+                <h4>URL Analysis Result</h4>
+                <p><strong>Analyzed URL:</strong> {{ input_url }}</p>
+                <pre style="white-space: pre-wrap; word-wrap: break-word; text-align: left; font-size: 0.9em; background: rgba(0,0,0,0.1); padding: 15px; border-radius: 8px; margin-top: 15px;">{{ predicted_class }}</pre>
+            </div>
+            {% endif %}
+
+            <div class="input-group" style="margin-top: 30px;">
+                <a href="{{ url_for('scan') }}" class="btn-primary">Scan Another</a>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

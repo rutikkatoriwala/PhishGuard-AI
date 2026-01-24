@@ -7,7 +7,7 @@
     <title>PhishGuard AI | Advanced Malicious Detection</title>
     <meta name="description"
         content="State-of-the-art AI-powered platform to detect phishing URLs and malicious PDF/TXT files using deep learning.">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -26,7 +26,7 @@
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#features">Detection</a></li>
                 <li><a href="#about">Philosophy</a></li>
-                <li><a href="scan.html" class="btn-primary">Scan Now</a></li>
+                <li><a href="{{ url_for('scan') }}" class="btn-primary">Scan Now</a></li>
             </ul>
         </nav>
     </header>
@@ -34,14 +34,14 @@
     <main>
         <section id="hero">
             <div class="hero-image-container">
-                <img src="emerald_security_hero_new_1769231170915.png" alt="Stealth AI Security" id="hero-img">
+                <img src="{{ url_for('static', filename='emerald_security_hero_new_1769231170915.png') }}" alt="Stealth AI Security" id="hero-img">
             </div>
             <div class="hero-content container">
                 <h2 class="fade-in">The New Apex of <span class="highlight">Cyber Defense</span></h2>
                 <p class="fade-in-delayed">Moving beyond traditional firewalls. PhishGuard AI uses pattern-recognition
                     intelligence to intercept threats before they reach your infrastructure.</p>
                 <div class="hero-buttons fade-in-delayed">
-                    <a href="scan.html" class="btn-primary">Initiate Deep Scan</a>
+                    <a href="{{ url_for('scan') }}" class="btn-primary">Initiate Deep Scan</a>
                     <a href="#about" class="btn-secondary">Technical Details</a>
                 </div>
             </div>
@@ -54,18 +54,18 @@
             </div>
 
             <div class="feature-grid">
-                <div class="feature-card" onclick="location.href='scan.html?tab=url'">
+                <div class="feature-card" onclick="location.href='{{ url_for('scan') }}?tab=url'">
                     <div class="feature-image">
-                        <img src="emerald_url_icon_new_1769231138805.png" alt="URL Phishing Scan">
+                        <img src="{{ url_for('static', filename='emerald_url_icon_new_1769231138805.png') }}" alt="URL Phishing Scan">
                     </div>
                     <h3>URL Detection</h3>
                     <p>Scrutinizing URLs for credential harvesting, polymorphic redirects, and homograph attacks in
                         milliseconds.</p>
                 </div>
 
-                <div class="feature-card" onclick="location.href='scan.html?tab=file'">
+                <div class="feature-card" onclick="location.href='{{ url_for('scan') }}?tab=file'">
                     <div class="feature-image">
-                        <img src="emerald_file_icon_new_1769231154810.png" alt="File Analysis">
+                        <img src="{{ url_for('static', filename='emerald_file_icon_new_1769231154810.png') }}" alt="File Analysis">
                     </div>
                     <h3>Malicious Files</h3>
                     <p>Deep object inspection for PDF and TXT files, unveiling obfuscated macro-scripts and weaponized
