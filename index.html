@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard AI | Advanced Malicious Detection</title>
+    <meta name="description"
+        content="State-of-the-art AI-powered platform to detect phishing URLs and malicious PDF/TXT files using deep learning.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header id="main-header">
+        <nav class="container">
+            <div class="logo">
+                <span class="logo-icon">🌿</span>
+                <h1>PhishGuard<span>AI</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#features">Detection</a></li>
+                <li><a href="#about">Philosophy</a></li>
+                <li><a href="scan.html" class="btn-primary">Scan Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-image-container">
+                <img src="emerald_security_hero_new_1769231170915.png" alt="Stealth AI Security" id="hero-img">
+            </div>
+            <div class="hero-content container">
+                <h2 class="fade-in">The New Apex of <span class="highlight">Cyber Defense</span></h2>
+                <p class="fade-in-delayed">Moving beyond traditional firewalls. PhishGuard AI uses pattern-recognition
+                    intelligence to intercept threats before they reach your infrastructure.</p>
+                <div class="hero-buttons fade-in-delayed">
+                    <a href="scan.html" class="btn-primary">Initiate Deep Scan</a>
+                    <a href="#about" class="btn-secondary">Technical Details</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="container">
+            <div class="section-title">
+                <h2>Dual-Vector <span class="highlight">Intelligence</span></h2>
+                <p>Sophisticated detection systems focused on the two most common entry points.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card" onclick="location.href='scan.html?tab=url'">
+                    <div class="feature-image">
+                        <img src="emerald_url_icon_new_1769231138805.png" alt="URL Phishing Scan">
+                    </div>
+                    <h3>URL Detection</h3>
+                    <p>Scrutinizing URLs for credential harvesting, polymorphic redirects, and homograph attacks in
+                        milliseconds.</p>
+                </div>
+
+                <div class="feature-card" onclick="location.href='scan.html?tab=file'">
+                    <div class="feature-image">
+                        <img src="emerald_file_icon_new_1769231154810.png" alt="File Analysis">
+                    </div>
+                    <h3>Malicious Files</h3>
+                    <p>Deep object inspection for PDF and TXT files, unveiling obfuscated macro-scripts and weaponized
+                        attachments.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Our <span class="highlight">Security DNA</span></h2>
+                    <p>We don't match signatures. We predict intent. Our neural engine evaluates the structural
+                        components of URLs and files to determine the likelihood of malicious behavior.</p>
+                </div>
+                <div class="about-visual">
+                    <div class="glass-box">
+                        <pre><code>
+{
+  "status": "threat_detected",
+  "score": 0.98,
+  "type": "phishing",
+  "ai_analysis": "Suspicious TLD pattern"
+}
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 PhishGuard AI. BUILT FOR THE NEXT GENERATION OF SECURITY.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
