@@ -134,82 +134,37 @@ async function startScan(type) {
             body: formData
         });
         
-        const html = await response.text();
+        const data = await response.json();
         
-        // Extract classification from HTML response
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        
-        let classification = '';
-        let message = '';
-        
-        // Try to extract the predicted_class or message from the response
-        const classElement = doc.querySelector('[data-classification]');
-        if (classElement) {
-            classification = classElement.textContent;
-        } else {
-            // Fallback: look for JSON in the response or text patterns
-            const bodyText = doc.body.textContent;
+        if (data.success) {
+            const verdictClass = data.verdict_class || 'safe';
+            const verdictIcon = data.emoji || '🔍';
+            const classification = data.classification || 'Unknown';
+            const riskLevel = data.risk_level || 'Unknown';
+            const confidence = data.confidence || '0%';
             
-            // Try to parse JSON if present
-            try {
-                const jsonMatch = bodyText.match(/\{[\s\S]*\}/);
-                if (jsonMatch) {
-                    const jsonData = JSON.parse(jsonMatch[0]);
-                    classification = jsonData.classification || '';
-                    const riskLevel = jsonData.risk_level || '';
-                    const confidence = jsonData.confidence_score || '';
-                    const reasons = jsonData.reason || [];
-                    
-                    classification = `${classification} (${riskLevel} Risk, ${confidence} confidence)`;
-                    if (reasons.length > 0) {
-                        classification += '\nReasons: ' + reasons.join(', ');
-                    }
-                }
-            } catch (e) {
-                // If JSON parsing fails, look for text patterns
-                if (bodyText.includes('Phishing')) {
-                    classification = bodyText.match(/Phishing[^"]*/)?.[0] || 'Phishing detected';
-                } else if (bodyText.includes('Malware')) {
-                    classification = bodyText.match(/Malware[^"]*/)?.[0] || 'Malware detected';
-                } else if (bodyText.includes('Safe')) {
-                    classification = 'Safe';
-                } else if (bodyText.includes('Invalid URL')) {
-                    classification = 'Invalid URL format';
-                } else {
-                    classification = bodyText.substring(0, 300); // Show response
-                }
-            }
+            resultArea.innerHTML = `
+                <div class="scan-verdict ${verdictClass}">
+                    <span class="verdict-icon">${verdictIcon}</span>
+                    <h4>URL Analysis Complete</h4>
+                    <p><strong>Classification:</strong> ${classification}</p>
+                    <p><strong>Risk Level:</strong> ${riskLevel}</p>
+                    <p><strong>Confidence:</strong> ${confidence}</p>
+                    <p><strong>Analyzed URL:</strong> ${url}</p>
+                    <div class="backend-msg" style="margin-top: 15px; font-size: 0.85em; opacity: 0.8;">Based on ML analysis of 651,000+ URLs</div>
+                </div>
+            `;
+        } else {
+            resultArea.innerHTML = `
+                <div class="scan-verdict error">
+                    <span class="verdict-icon">❌</span>
+                    <h4>Error</h4>
+                    <p>${data.message || 'Unknown error occurred'}</p>
+                </div>
+            `;
         }
-
-        // Determine verdict class based on classification
-        let verdictClass = 'safe';
-        let verdictIcon = '✅';
-        
-        if (classification.toLowerCase().includes('phishing')) {
-            verdictClass = 'phishing';
-            verdictIcon = '⚠️';
-        } else if (classification.toLowerCase().includes('malware')) {
-            verdictClass = 'malicious';
-            verdictIcon = '☠️';
-        } else if (classification.toLowerCase().includes('safe')) {
-            verdictClass = 'safe';
-            verdictIcon = '✅';
-        } else if (classification.toLowerCase().includes('invalid')) {
-            verdictClass = 'error';
-            verdictIcon = '❌';
-        }
-
-        resultArea.innerHTML = `
-            <div class="scan-verdict ${verdictClass}">
-                <span class="verdict-icon">${verdictIcon}</span>
-                <h4>URL Analysis Complete</h4>
-                <p><strong>Result:</strong></p>
-                <pre style="white-space: pre-wrap; word-wrap: break-word; text-align: left; font-size: 0.9em;">${classification}</pre>
-                <div class="backend-msg">Analyzed URL: ${url}</div>
-            </div>
-        `;
     } catch (error) {
+        console.error('Scan error:', error);
         resultArea.innerHTML = `<p class="error">Failed to connect to Python Backend. Make sure app.py is running on port 5000.</p>`;
     }
 }

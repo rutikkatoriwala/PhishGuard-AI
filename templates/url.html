@@ -38,7 +38,7 @@
             {% endif %}
 
             {% if predicted_class %}
-            <div class="scan-verdict">
+            <div class="scan-verdict" data-classification="{{ predicted_class }}">
                 <span class="verdict-icon">🔍</span>
                 <h4>URL Analysis Result</h4>
                 <p><strong>Analyzed URL:</strong> {{ input_url }}</p>
