@@ -88,20 +88,19 @@ async function handleFileUpload(file) {
 
         // Determine verdict class based on prediction
         let verdictClass = 'safe';
-        let verdictIcon = '✅';
+        let verdictIcon = '🛡️';
 
-        if (prediction.toLowerCase().includes('phishing')) {
-            verdictClass = 'phishing';
-            verdictIcon = '⚠️';
-        } else if (prediction.toLowerCase().includes('fraud')) {
-            verdictClass = 'fraud';
-            verdictIcon = '🚫';
-        } else if (prediction.toLowerCase().includes('malicious')) {
+        const lowerPrediction = prediction.toLowerCase();
+
+        if (lowerPrediction.includes('clean') || lowerPrediction.includes('safe') || lowerPrediction.includes('authenticated')) {
+            verdictClass = 'safe';
+            verdictIcon = '🛡️';
+        } else if (lowerPrediction.includes('critical') || lowerPrediction.includes('malicious') || lowerPrediction.includes('phishing') || lowerPrediction.includes('threat')) {
             verdictClass = 'malicious';
             verdictIcon = '☠️';
-        } else if (prediction.toLowerCase().includes('authenticated')) {
-            verdictClass = 'safe';
-            verdictIcon = '✅';
+        } else {
+            verdictClass = 'warning';
+            verdictIcon = '⚠️';
         }
 
         resultArea.innerHTML = `

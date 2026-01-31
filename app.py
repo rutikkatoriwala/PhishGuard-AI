@@ -153,7 +153,7 @@ def scan():
             # 1. Check for System Compromise Patterns (Shells, Registry, Execution)
             threat_signatures = {
                 "REVERSE_SHELL": [r"nc -e", r"/bin/bash", r"socket\.socket", r"subprocess\.Popen", r"sh -i"],
-                "PERSISTENCE": [r"reg add", r"Software\Microsoft\Windows\CurrentVersion\Run", r"schtasks", r"systemd"],
+                "PERSISTENCE": [r"reg add", r"Software\\Microsoft\\Windows\\CurrentVersion\\Run", r"schtasks", r"systemd"],
                 "DATA_EXFILTRATION": [r"ftp\.", r"scp ", r"curl -F", r"POST", r"upload_file"],
                 "OBFUSCATION": [r"base64", r"eval\(", r"exec\(", r"char\(", r"0x[0-9a-fA-F]{2}"],
                 "AUTO_EXECUTION": [r"/OpenAction", r"/JavaScript", r"/JS", r"/EmbeddedFiles"]
@@ -236,6 +236,27 @@ def url_scan():
             print(f"[DEBUG] ML Prediction: '{ml_prediction}', Confidence: {ml_confidence}%")
             
             # Format the result with classification details
+            if ml_prediction.lower() == 'benign':
+                risk_emoji = "✅"
+                risk_level = "Low Risk"
+                verdict_class = "safe"
+            elif ml_prediction.lower() == 'phishing':
+                risk_emoji = "🎣"
+                risk_level = "High Risk - Phishing Detected"
+                verdict_class = "phishing"
+            elif ml_prediction.lower() == 'malware':
+                risk_emoji = "🦠"
+                risk_level = "Critical Risk - Malware Detected"
+                verdict_class = "malicious"
+            elif ml_prediction.lower() == 'defacement':
+                risk_emoji = "⚠️"
+                risk_level = "Medium Risk - Defacement Detected"
+                verdict_class = "defacement"
+            else:
+                risk_emoji = "⚠️"
+                risk_level = "Suspicious Activity"
+                verdict_class = "warning"
+
             report_data = None
             if ml_prediction.lower() != 'benign':
                 report_data = {

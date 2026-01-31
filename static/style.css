@@ -360,15 +360,19 @@ nav {
 }
 
 .scan-verdict {
-    text-align: center;
-    padding: 2rem;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin-top: 2rem;
+    text-align: center;
 }
 
 .scan-verdict.safe {
     background: rgba(16, 185, 129, 0.05);
-    border-color: var(--primary);
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
 }
 
 .backend-msg {
