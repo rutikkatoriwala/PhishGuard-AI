@@ -13,6 +13,16 @@ document.querySelectorAll('.tab-btn').forEach(button => {
     });
 });
 
+// Auto-switch tab based on URL parameter
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab');
+    if (tab) {
+        const tabBtn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+        if (tabBtn) tabBtn.click();
+    }
+});
+
 // File Upload Trigger
 const dropZone = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
@@ -45,17 +55,17 @@ async function handleFileUpload(file) {
             method: 'POST',
             body: formData
         });
-        
+
         const html = await response.text();
-        
+
         // Extract prediction from HTML response
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        
+
         // Try to extract the prediction/message from the response
         let prediction = '';
         let message = '';
-        
+
         // Check for prediction in the HTML
         const predictionElement = doc.querySelector('[data-prediction]');
         if (predictionElement) {
@@ -79,7 +89,7 @@ async function handleFileUpload(file) {
         // Determine verdict class based on prediction
         let verdictClass = 'safe';
         let verdictIcon = '✅';
-        
+
         if (prediction.toLowerCase().includes('phishing')) {
             verdictClass = 'phishing';
             verdictIcon = '⚠️';
@@ -133,26 +143,60 @@ async function startScan(type) {
             method: 'POST',
             body: formData
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
             const verdictClass = data.verdict_class || 'safe';
             const verdictIcon = data.emoji || '🔍';
             const classification = data.classification || 'Unknown';
             const riskLevel = data.risk_level || 'Unknown';
             const confidence = data.confidence || '0%';
-            
+
+            let reportHtml = '';
+            if (data.report) {
+                const r = data.report;
+                reportHtml = `
+                    <div class="soc-report">
+                        <div class="report-header">
+                            <span class="badge ${r.severity.toLowerCase()}">INCIDENT: ${r.severity}</span>
+                            <span class="incident-id">${r.incident_id}</span>
+                        </div>
+                        <div class="report-section">
+                            <h5>Incident Summary</h5>
+                            <p>${r.analyst_summary}</p>
+                        </div>
+                        <div class="report-section">
+                            <h5>Indicators of Compromise (IoCs)</h5>
+                            <ul class="ioc-list">
+                                ${r.technical_details.map(detail => `<li>${detail}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="report-section highlight">
+                            <h5>Recommended Mitigation Steps</h5>
+                            <ul class="action-plan">
+                                ${r.action_plan.map(step => `<li>${step}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="report-footer">
+                            <span>Risk Score Index: ${r.risk_score}/100</span>
+                            <span>Status: Triage Required</span>
+                        </div>
+                    </div>
+                `;
+            }
+
             resultArea.innerHTML = `
                 <div class="scan-verdict ${verdictClass}">
                     <span class="verdict-icon">${verdictIcon}</span>
                     <h4>URL Analysis Complete</h4>
                     <p><strong>Classification:</strong> ${classification}</p>
                     <p><strong>Risk Level:</strong> ${riskLevel}</p>
-                    <p><strong>Confidence:</strong> ${confidence}</p>
+                    <p><strong>Model Confidence:</strong> ${confidence}</p>
                     <p><strong>Analyzed URL:</strong> ${url}</p>
                     <div class="backend-msg" style="margin-top: 15px; font-size: 0.85em; opacity: 0.8;">Based on ML analysis of 651,000+ URLs</div>
                 </div>
+                ${reportHtml}
             `;
         } else {
             resultArea.innerHTML = `

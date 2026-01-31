@@ -34,7 +34,7 @@ body {
 }
 
 h1,
-vh2,
+h2,
 h3,
 .btn-primary {
     font-family: 'Space Grotesk', sans-serif;
@@ -430,4 +430,106 @@ footer {
     color: var(--text-muted);
     font-size: 0.8rem;
     letter-spacing: 2px;
+}
+
+/* SOC Report Styling */
+.soc-report {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 2.5rem;
+    margin-top: 2rem;
+    text-align: left;
+    border-left: 4px solid #ef4444;
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.badge {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.badge.critical {
+    background: #ef4444;
+    color: white;
+}
+
+.badge.high {
+    background: #f97316;
+    color: white;
+}
+
+.badge.medium {
+    background: #eab308;
+    color: black;
+}
+
+.incident-id {
+    font-family: monospace;
+    opacity: 0.6;
+    font-size: 0.9rem;
+}
+
+.report-section {
+    margin-bottom: 1.5rem;
+}
+
+.report-section h5 {
+    color: var(--primary);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.report-section p {
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.ioc-list,
+.action-plan {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.ioc-list li::before {
+    content: '▶';
+    color: #ef4444;
+    font-size: 0.7rem;
+    margin-right: 10px;
+}
+
+.action-plan li {
+    background: rgba(16, 185, 129, 0.05);
+    padding: 0.8rem;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.action-plan li::before {
+    content: '🛡️';
+    margin-right: 10px;
+}
+
+.report-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    opacity: 0.5;
 }

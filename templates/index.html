@@ -34,7 +34,8 @@
     <main>
         <section id="hero">
             <div class="hero-image-container">
-                <img src="{{ url_for('static', filename='emerald_security_hero_new_1769231170915.png') }}" alt="Stealth AI Security" id="hero-img">
+                <img src="{{ url_for('static', filename='emerald_security_hero_new_1769231170915.png') }}"
+                    alt="Stealth AI Security" id="hero-img">
             </div>
             <div class="hero-content container">
                 <h2 class="fade-in">The New Apex of <span class="highlight">Cyber Defense</span></h2>
@@ -54,18 +55,20 @@
             </div>
 
             <div class="feature-grid">
-                <div class="feature-card" onclick="location.href='{{ url_for('scan') }}?tab=url'">
+                <div class="feature-card" onclick="location.href='{{ url_for('scan') }}?tab=url';">
                     <div class="feature-image">
-                        <img src="{{ url_for('static', filename='emerald_url_icon_new_1769231138805.png') }}" alt="URL Phishing Scan">
+                        <img src="{{ url_for('static', filename='emerald_url_icon_new_1769231138805.png') }}"
+                            alt="URL Phishing Scan">
                     </div>
                     <h3>URL Detection</h3>
                     <p>Scrutinizing URLs for credential harvesting, polymorphic redirects, and homograph attacks in
                         milliseconds.</p>
                 </div>
 
-                <div class="feature-card" onclick="location.href='{{ url_for('scan') }}?tab=file'">
+                <div class="feature-card" onclick="location.href='{{ url_for('scan') }}?tab=file';">
                     <div class="feature-image">
-                        <img src="{{ url_for('static', filename='emerald_file_icon_new_1769231154810.png') }}" alt="File Analysis">
+                        <img src="{{ url_for('static', filename='emerald_file_icon_new_1769231154810.png') }}"
+                            alt="File Analysis">
                     </div>
                     <h3>Malicious Files</h3>
                     <p>Deep object inspection for PDF and TXT files, unveiling obfuscated macro-scripts and weaponized
@@ -103,7 +106,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>

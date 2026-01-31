@@ -42,10 +42,48 @@
             {% endif %}
 
             {% if prediction %}
-            <div class="scan-verdict" style="margin-bottom: 20px;" data-prediction="{{ prediction }}">
-                <span class="verdict-icon">🔍</span>
-                <h4>File Analysis Result</h4>
-                <p><strong>Result:</strong> {{ prediction }}</p>
+            <div class="scan-verdict {% if report %}malicious{% else %}safe{% endif %}" style="margin-bottom: 20px;"
+                data-prediction="{{ prediction }}">
+                <span class="verdict-icon">{% if report %}🚫{% else %}🔍{% endif %}</span>
+                <h4>Analysis Result</h4>
+                <p><strong>Status:</strong> {{ prediction }}</p>
+            </div>
+            {% endif %}
+
+            {% if report %}
+            <div class="soc-report">
+                <div class="report-header">
+                    <span class="badge {{ report.severity | lower }}">INCIDENT: {{ report.severity }}</span>
+                    <span class="incident-id">{{ report.incident_id }}</span>
+                </div>
+
+                <div class="report-section">
+                    <h5>Incident Summary</h5>
+                    <p>{{ report.analyst_summary }}</p>
+                </div>
+
+                <div class="report-section">
+                    <h5>Indicators of Compromise (IoCs)</h5>
+                    <ul class="ioc-list">
+                        {% for detail in report.technical_details %}
+                        <li>{{ detail }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="report-section highlight">
+                    <h5>Recommended Mitigation Steps</h5>
+                    <ul class="action-plan">
+                        {% for step in report.action_plan %}
+                        <li>{{ step }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="report-footer">
+                    <span>Risk Score Index: {{ report.risk_score }}/100</span>
+                    <span>Status: Triage Required</span>
+                </div>
             </div>
             {% endif %}
 
