@@ -1,5 +1,3 @@
-phishing_model.pkl
-feature_names.pkl
 malicious_phish.csv
 __pycache__/
 *.pyc
