@@ -9,7 +9,7 @@ import joblib
 
 print("Loading dataset...")
 # Load the dataset
-df = pd.read_csv('malicious_phish.csv')
+df = pd.read_csv('malicious_phish_cleaned.csv')
 
 print(f"Dataset loaded: {len(df)} URLs")
 print(f"Classes: {df['type'].value_counts()}\n")
@@ -119,8 +119,10 @@ print("(This may take a few minutes with 651k samples...)\n")
 
 # Using Random Forest with 100 trees
 model = RandomForestClassifier(
-    n_estimators=100,      # 100 decision trees
-    max_depth=20,          # Maximum depth of each tree
+    n_estimators=30,       # 30 decision trees (reduced to decrease model size)
+    max_depth=15,          # Maximum depth of each tree (reduced to decrease model size)
+    min_samples_split=10,  # Minimum samples required to split a node
+    min_samples_leaf=5,    # Minimum samples required at leaf node
     random_state=42,       # For reproducibility
     n_jobs=-1,            # Use all CPU cores
     verbose=1             # Show progress
@@ -163,7 +165,7 @@ print("SAVING MODEL")
 print("="*60)
 
 model_filename = 'phishing_model.pkl'
-joblib.dump(model, model_filename)
+joblib.dump(model, model_filename, compress=3)  # compress=3 for good compression
 print(f"✓ Model saved as '{model_filename}'")
 
 # Also save feature names for future use

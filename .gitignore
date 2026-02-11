@@ -1,4 +1,5 @@
 malicious_phish.csv
+malicious_phish_cleaned.csv
 __pycache__/
 *.pyc
 .venv/
