@@ -1,8 +1,45 @@
+# ============================================================================
+# PhishGuard AI - Research Edition Requirements
+# Version: 2.0.0
+# Python: 3.10+ (Compatible with 3.13)
+# ============================================================================
+
+# Core Web Framework
 Flask==3.0.0
 flask-cors==4.0.0
-joblib==1.2.0
-scikit-learn==1.2.2
-pandas==2.0.3
-numpy==1.24.3
-PyPDF2==3.0.1
 gunicorn==21.2.0
+
+# Data Processing
+pandas>=2.2.0  # Python 3.13 compatible
+numpy>=1.26.0  # Python 3.13 compatible
+
+# Machine Learning - Baseline
+scikit-learn>=1.4.0  # Python 3.13 compatible
+joblib==1.2.0
+
+# Machine Learning - Advanced (Research Edition)
+xgboost>=2.0.0
+lightgbm>=4.0.0
+imbalanced-learn>=0.12.0  # SMOTE for class balancing
+
+# Hyperparameter Optimization
+optuna>=3.5.0
+
+# Explainability (XAI)
+shap>=0.44.0
+
+# Visualization
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.18.0
+
+# Document Processing
+PyPDF2==3.0.1
+
+# Utilities
+tqdm>=4.66.0  # Progress bars
+colorama>=0.4.6  # Colored terminal output
+
+# Optional: GPU Acceleration (uncomment if CUDA available)
+# xgboost[gpu]>=2.0.0
+# lightgbm[gpu]>=4.0.0
